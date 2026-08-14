@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Task-Driven Co-Design of Heterogeneous Multi-Robot Systems</title>
+    <meta
+      name="description"
+      content="Project page for a task-driven co-design framework for heterogeneous multi-robot systems, including the paper, video summary, and interactive Pareto-front case-study results."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Project home">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>Multi-Robot Co-Design</span>
+      </a>
+      <nav class="site-nav" aria-label="Site navigation">
+        <a
+          href="https://arxiv.org/abs/2604.21894"
+          target="_blank"
+          rel="noopener noreferrer"
+        >Paper</a>
+        <a href="#video">Video</a>
+        <a href="#results">Results</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-content">
+          <p class="eyebrow">Maximilian Stralz, Meshal Alharbi, Yujun Huang, Gioele Zardini</p>
+          <h1 id="hero-title">
+            Task-Driven Co-Design of Heterogeneous Multi-Robot Systems
+          </h1>
+          <p class="hero-copy">
+            This project presents a task-driven co-design framework for heterogeneous multi-robot systems, where robot hardware, fleet composition, planning, and execution are optimized jointly rather than in isolation. Building on a monotone theory of co-design, the framework represents these coupled decisions through modular design problems with well-defined interfaces, enabling the computation of Pareto-optimal system designs under task-specific performance constraints. The approach is demonstrated on search-and-coverage case studies, showing how different robot fleets, planners, and resource trade-offs emerge as optimal across changing task requirements and environments.
+          </p>
+          <div class="hero-actions" aria-label="Primary links">
+            <a class="button button-primary" href="#results">Explore results</a>
+            <a
+              class="button button-secondary"
+              href="https://arxiv.org/abs/2604.21894"
+              target="_blank"
+              rel="noopener noreferrer"
+            >Read paper</a>
+          </div>
+        </div>
+        <div class="hero-figure" aria-hidden="true">
+          <img src="media/OverviewDiagram.png" alt="" />
+        </div>
+      </section>
+
+      <section class="section" id="video" aria-labelledby="video-title">
+        <div class="section-heading">
+          <p class="section-kicker">Summary video</p>
+          <h2 id="video-title">A short walkthrough of the paper</h2>
+          <p>
+            The video introduces the design problem, the co-design formulation,
+            and how the case studies support the proposed framework.
+          </p>
+        </div>
+        <div class="video-shell">
+          <video controls preload="metadata" poster="media/summary-poster.jpg">
+            <source src="media/summary.mp4" type="video/mp4" />
+            Your browser does not support the video element.
+          </video>
+        </div>
+      </section>
+
+      <section class="section" id="results" aria-labelledby="results-title">
+        <div class="section-grid results-intro">
+          <div>
+            <p class="section-kicker">Interactive case-study results</p>
+            <h2 id="results-title">Pareto fronts for Case Studies</h2>
+          </div>
+          <div class="section-copy">
+            <p>
+              The visualization below shows Pareto fronts from the paper across
+              several two-dimensional projections of the trade-off space,
+              including time versus cost, energy versus cost, and energy versus
+              time.
+            </p>
+            <p>
+              Filter by case study through the legend, hover over points to
+              inspect concrete implementations, click a case study to show or
+              hide it, and double-click to isolate it.
+            </p>
+          </div>
+        </div>
+
+        <div class="tool-frame" aria-label="Interactive Pareto front visualization">
+          <iframe
+            title="Interactive Pareto front visualization"
+            src="interactive_Pareto_fronts.html"
+            loading="lazy"
+            scrolling="no"
+          ></iframe>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Task-Driven Co-Design of Heterogeneous Multi-Robot Systems</p>
+      <div class="footer-links">
+        <a
+          href="https://arxiv.org/abs/2604.21894"
+          target="_blank"
+          rel="noopener noreferrer"
+        >Paper on arXiv</a>
+        <a href="interactive_Pareto_fronts.html">Open visualization in a new tab</a>
+      </div>
+    </footer>
+    <script>
+      const centerScrollableFrame = () => {
+        const frame = document.querySelector(".tool-frame");
+        if (!frame) return;
+
+        frame.scrollLeft = (frame.scrollWidth - frame.clientWidth) / 2;
+      };
+
+      window.addEventListener("load", centerScrollableFrame);
+      window.addEventListener("resize", centerScrollableFrame);
+    </script>
+  </body>
+</html>
