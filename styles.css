@@ -207,8 +207,12 @@ h2 {
   padding: clamp(72px, 10vw, 132px) clamp(20px, 5vw, 64px);
 }
 
-#results {
+#results,
+.visualization-section {
   padding-inline: 0;
+}
+
+#results {
   background: var(--soft);
 }
 
@@ -286,6 +290,10 @@ h2 {
   min-height: var(--viz-height);
   border: 0;
   background: #ffffff;
+}
+
+.phase-tool-frame {
+  --viz-height: 1650px;
 }
 
 .site-footer {

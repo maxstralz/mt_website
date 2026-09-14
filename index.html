@@ -6,7 +6,7 @@
     <title>Task-Driven Co-Design of Heterogeneous Multi-Robot Systems</title>
     <meta
       name="description"
-      content="Project page for a task-driven co-design framework for heterogeneous multi-robot systems, including the paper, video summary, and interactive Pareto-front case-study results."
+      content="Project page for a task-driven co-design framework for heterogeneous multi-robot systems, including the paper, video summary, and interactive Pareto-front and phase-diagram results."
     />
     <link rel="stylesheet" href="styles.css" />
   </head>
@@ -23,7 +23,8 @@
           rel="noopener noreferrer"
         >Paper</a>
         <a href="#video">Video</a>
-        <a href="#results">Results</a>
+        <a href="#results">Pareto fronts</a>
+        <a href="#phase-diagrams">Phase diagrams</a>
       </nav>
     </header>
 
@@ -99,6 +100,46 @@
           ></iframe>
         </div>
       </section>
+
+      <section
+        class="section visualization-section"
+        id="phase-diagrams"
+        aria-labelledby="phase-diagrams-title"
+      >
+        <div class="section-grid results-intro">
+          <div>
+            <p class="section-kicker">Interactive design-regime maps</p>
+            <h2 id="phase-diagrams-title">Phase diagrams for Case Study I</h2>
+          </div>
+          <div class="section-copy">
+            <p>
+              Phase diagrams show how the resource-minimizing system
+              architecture changes as the required coverage and available
+              resource budget vary.
+            </p>
+            <p>
+              Each colored region identifies the optimal fleet composition,
+              planner, or battery configuration, while gray regions contain no
+              feasible implementation. Use the controls to choose the budgeted
+              resource, the resource to minimize, and the architectural phase
+              to display. Up to four configurations can be compared at once,
+              and hovering over a region reveals the selected implementation.
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="tool-frame phase-tool-frame"
+          aria-label="Interactive phase diagram visualization"
+        >
+          <iframe
+            title="Interactive phase diagram visualization"
+            src="coverage_deadline_phase_interactive.html"
+            loading="lazy"
+            scrolling="no"
+          ></iframe>
+        </div>
+      </section>
     </main>
 
     <footer class="site-footer">
@@ -110,17 +151,48 @@
           rel="noopener noreferrer"
         >Paper on arXiv</a>
         <a href="interactive_Pareto_fronts.html">Open visualization in a new tab</a>
+        <a href="coverage_deadline_phase_interactive.html">Open phase diagrams in a new tab</a>
       </div>
     </footer>
     <script>
-      const centerScrollableFrame = () => {
-        const frame = document.querySelector(".tool-frame");
-        if (!frame) return;
+      let phaseFrameObserver;
 
-        frame.scrollLeft = (frame.scrollWidth - frame.clientWidth) / 2;
+      const centerScrollableFrame = () => {
+        document.querySelectorAll(".tool-frame").forEach((frame) => {
+          frame.scrollLeft = (frame.scrollWidth - frame.clientWidth) / 2;
+        });
       };
 
+      const initializePhaseFrameResize = () => {
+        const container = document.querySelector(".phase-tool-frame");
+        const iframe = container?.querySelector("iframe");
+        const iframeWindow = iframe?.contentWindow;
+        const page = iframe?.contentDocument?.querySelector(".page");
+        if (!container || !iframeWindow || !page) return;
+
+        const resizeFrame = () => {
+          const height = Math.max(
+            900,
+            Math.ceil(page.getBoundingClientRect().height) + 2,
+          );
+          container.style.setProperty("--viz-height", `${height}px`);
+        };
+
+        phaseFrameObserver?.disconnect();
+        if (!iframeWindow.ResizeObserver) {
+          resizeFrame();
+          return;
+        }
+        phaseFrameObserver = new iframeWindow.ResizeObserver(resizeFrame);
+        phaseFrameObserver.observe(page);
+        resizeFrame();
+      };
+
+      const phaseIframe = document.querySelector(".phase-tool-frame iframe");
+      phaseIframe?.addEventListener("load", initializePhaseFrameResize);
+
       window.addEventListener("load", centerScrollableFrame);
+      window.addEventListener("load", initializePhaseFrameResize);
       window.addEventListener("resize", centerScrollableFrame);
     </script>
   </body>
